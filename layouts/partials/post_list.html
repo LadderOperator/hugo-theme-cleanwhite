@@ -1,24 +1,49 @@
 <!-- post list -->
 {{ range $index, $element := $.Paginator.Pages }}
-<div class="post-preview">
-    <a href="{{ .Permalink }}">
-        <h2 class="post-title">
-            {{ .Title }}
-        </h2>
-	{{with .Params.subtitle }}
-        <h3 class="post-subtitle">
-            {{ . }}
-        </h3>
-	{{ end }}
-        <div class="post-content-preview">
-	{{ with .Description }}
-            {{ . }}
-        {{ else }}
-            {{ .Summary}}
-       {{ end }}
+<div class="post-preview" >
+    <div class="post-thumbnail">
+        <div class="post-thumb-inner" style="
+            background-image: url({{ .Permalink }}{{.Params.image}});">
+            <a href="{{ .Permalink }}">
+                <div class="overlay"></div>
+            </a>
         </div>
-    </a>
-    <p class="post-meta">
+    </div>
+    <div class="post-text">
+        <p class="post-meta">
+            {{ if .Params.metadata }}
+                {{ range $index, $element := .Params.metadata }}
+                    {{ if .link }}
+                        <a href="{{ .link }}">{{ .text }}</a>
+                    {{ else }}
+                        {{ .text }}
+                    {{ end }}
+                {{ end }}
+            {{ else }}
+                {{ .Date.Format "2006.01.02" }}
+            {{ end }}
+        </p>
+
+        <a class="post-link" href="{{ .Permalink }}">
+            <h2 class="post-title">
+                {{ .Title }}
+            </h2>
+            {{with .Params.subtitle }}
+            <h3 class="post-subtitle">
+                {{ . }}
+            </h3>
+            {{ end }}
+        </a>
+        <div class="post-content-preview">
+            {{ with .Description }}
+            {{ . }}
+            {{ else }}
+            {{ .Summary}}
+            {{ end }}
+        </div>
+    </div>
+</div>
+<!--     <p class="post-meta" style="float: right; width: 60%;">
     {{ if .Params.metadata }}
         {{ range $index, $element := .Params.metadata }}
             {{ if .link }}
@@ -28,14 +53,13 @@
             {{ end }}
         {{ end }}
     {{ else }}
-        Posted by{{ with .Params.author }}{{ . }}{{ else }}{{ .Site.Title }}{{ end }}  {{ .Date.Format "Monday, January 2, 2006" }}
-        <!-- Don't show "Last Modified on" if update happened on the same day. -->
+        Posted by {{ with .Params.author }}{{ . }}{{ else }}{{ .Site.Title }}{{ end }}  {{ .Date.Format "Monday, January 2, 2006" }}
+
         {{ if (and (not .Lastmod.IsZero) (not (eq (dateFormat "2006-01-02" .Lastmod) (dateFormat "2006-01-02" .Date)))) }}
             <br>Last Modified on {{ dateFormat "Monday, January 2, 2006" .Params.LastMod }} 
         {{ end }}
     {{ end }}
-    </p>
-
+    </p> -->
 </div>
 <hr>
 {{ end }}
