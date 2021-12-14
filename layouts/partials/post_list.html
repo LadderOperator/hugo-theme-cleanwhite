@@ -28,17 +28,15 @@
             <h2 class="post-title">
                 {{ .Title }}
             </h2>
-            {{with .Params.subtitle }}
-            <h3 class="post-subtitle">
-                {{ . }}
-            </h3>
-            {{ end }}
         </a>
         <div class="post-content-preview">
             {{ with .Description }}
             {{ . }}
             {{ else }}
             {{ .Summary}}
+            {{ end }}
+            {{ if .Truncated }}
+            <a href="{{ .Permalink }}">阅读全文…</a>
             {{ end }}
         </div>
     </div>
