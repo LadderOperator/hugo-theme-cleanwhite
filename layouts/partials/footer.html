@@ -208,6 +208,13 @@
                         frameborder="0" scrolling="0" width="100px" height="20px"
                         src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
                     </iframe>
+                    {{ if .Site.Params.beian}}
+                        <br>
+                        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode={{ .Site.Params.beian.wangan_code }}">
+                        <img src="/img/beian.png" style="margin-left:5px;margin-right:5px;height:14px">{{ .Site.Params.beian.wangan_text }}</a>
+                        <br>
+                        <a href="http://www.beian.miit.gov.cn/">{{ .Site.Params.beian.icp_text }}</a>
+                    {{end}}
                 </p>
             </div>
         </div>
